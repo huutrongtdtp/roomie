@@ -11,8 +11,8 @@ import com.hcmut.roomie.entity.Location;
 @Mapper(componentModel = "spring")
 public interface LocationMapper {
 	
-	@Mappings({ @Mapping(target = "longitude", source = "getLongitude"),
-			@Mapping(target = "latitude", source = "getLatitude") })
+	@Mappings({ @Mapping(target = "longitude", source = "location", qualifiedByName = "getLongitude"),
+			@Mapping(target = "latitude", source = "location", qualifiedByName = "getLatitude") })
 	LocationDTO locationToLocationDTO(Location location);
 
 	Location locationDTOToLocation(LocationDTO locationDTO);
