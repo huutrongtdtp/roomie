@@ -3,8 +3,6 @@ package com.hcmut.roomie.dto;
 import java.util.Date;
 import java.util.List;
 
-
-
 public class RoomDTO {
 	private Long rid;
 	private Double area;
@@ -19,6 +17,7 @@ public class RoomDTO {
 	private Boolean cooking;
 	private Boolean security;
 	private Boolean privateToilet;
+	private String description;
 	private List<ImageDTO> imageDTO;
 	private Long uid;
 	private Long lid;
@@ -29,6 +28,14 @@ public class RoomDTO {
 
 	public void setImageDTO(List<ImageDTO> imageDTO) {
 		this.imageDTO = imageDTO;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public Long getRid() {
@@ -150,4 +157,15 @@ public class RoomDTO {
 	public void setLid(Long lid) {
 		this.lid = lid;
 	}
+
+	@Override
+	public boolean equals(Object object) {
+		return this.rid == ((RoomDTO) object).getRid();
+	}
+
+	@Override
+	public int hashCode() {
+		return (int) (7 * rid);
+	}
+
 }

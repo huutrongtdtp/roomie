@@ -11,5 +11,7 @@ public interface RoomService {
 
 	public RoomDTO getRoom(Long rid);
 
-	public List<RoomDTO> findNearby(long latitude, long longitude, int meter);
+	public List<RoomDTO> findNearby(double latitude, double longitude, int meter);
+	
+	public List<RoomDTO> findBySubcription(long uid);
 }

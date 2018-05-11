@@ -12,9 +12,11 @@ import org.springframework.web.client.HttpServerErrorException;
 
 import com.hcmut.roomie.dal.LocationDAO;
 import com.hcmut.roomie.dal.RoomDAO;
+import com.hcmut.roomie.dal.SubcriptionDAO;
 import com.hcmut.roomie.dto.LocationDTO;
 import com.hcmut.roomie.dto.RoomDTO;
-import com.hcmut.roomie.entity.Room;
+import com.hcmut.roomie.entity.Subcription;
+import com.hcmut.roomie.mapper.LocationMapper;
 import com.hcmut.roomie.mapper.RoomMapper;
 
 @Service
@@ -27,6 +29,10 @@ public class RoomServiceImpl implements RoomService {
 	private LocationDAO locationDAO;
 	@Autowired
 	private LocationService locationService;
+	@Autowired
+	private SubcriptionDAO subscriptionDAO;
+	@Autowired
+	private LocationMapper locationMapper;
 
 	@Override
 	public RoomDTO createRoom(RoomDTO roomDTO) {
@@ -46,15 +52,27 @@ public class RoomServiceImpl implements RoomService {
 	}
 
 	@Override
-	public List<RoomDTO> findNearby(long latitude, long longitude, int meter) {
+	public List<RoomDTO> findNearby(double latitude, double longitude, int meter) {
 		List<LocationDTO> locations = locationService.getAllLocation().stream().filter(location -> DistanceCalculator
-				.distance(latitude, longitude, location.getLatitude(), location.getLongitude(), "M") <= meter)
+				.distance(latitude, longitude, location.getLatitude(), location.getLongitude(), "K") <= meter)
 				.collect(Collectors.toList());
 		List<RoomDTO> result = new ArrayList<>();
 		locations.forEach(location -> locationDAO.findById(location.getLid())
 				.orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND)).getRooms()
 				.forEach(dto -> result.add(roomMapper.roomToRoomDTO(dto))));
-		return result;
+		return result.stream().distinct().collect(Collectors.toList());
+	}
+
+	@Override
+	public List<RoomDTO> findBySubcription(long uid) {
+		List<Subcription> subcriptions = subscriptionDAO.findByUserUid(uid);
+		List<RoomDTO> result = new ArrayList<>();
+		subcriptions.forEach(subcription -> {
+			LocationDTO locationDTO = locationMapper.locationToLocationDTO(subcription.getLocation());
+			result.addAll(findNearby(locationDTO.getLatitude(), locationDTO.getLongitude(),
+					subcription.getRadius().intValue()));
+		});
+		return result.stream().distinct().collect(Collectors.toList());
 	}
 
 }

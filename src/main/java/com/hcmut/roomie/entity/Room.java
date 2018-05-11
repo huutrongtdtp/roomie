@@ -31,6 +31,7 @@ public class Room {
 	private Boolean cooking;
 	private Boolean security;
 	private Boolean privateToilet;
+	private String description;
 	@ManyToOne
 	@JoinColumn(name = "uid")
 	private User user;
@@ -43,6 +44,14 @@ public class Room {
 	private List<Image> images = new ArrayList<>();
 	@OneToMany(mappedBy = "room")
 	private List<Rate> rates = new ArrayList<>();
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
 	public Long getRid() {
 		return rid;

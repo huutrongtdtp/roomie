@@ -36,8 +36,13 @@ public class RoomAPI {
 	}
 
 	@GetMapping("api/room/findNearBy")
-	public ResponseEntity<List<RoomDTO>> findRoomNearBy(@RequestParam long latitude, @RequestParam long longitude,
+	public ResponseEntity<List<RoomDTO>> findRoomNearBy(@RequestParam double latitude, @RequestParam double longitude,
 			@RequestParam int meter) {
 		return ResponseEntity.ok(roomService.findNearby(latitude, longitude, meter));
+	}
+
+	@GetMapping("api/room/findBySubcription")
+	public ResponseEntity<List<RoomDTO>> findBySubcription(@RequestParam long userId) {
+		return ResponseEntity.ok(roomService.findBySubcription(userId));
 	}
 }

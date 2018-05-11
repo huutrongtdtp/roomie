@@ -19,7 +19,7 @@ public class DistanceCalculator {
 			dist = dist * 0.8684;
 		}
 
-		return (dist);
+		return (dist * 1000);
 	}
 
 	private static double deg2rad(double deg) {
