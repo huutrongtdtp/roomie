@@ -2,6 +2,7 @@ package com.hcmut.roomie.mapper;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.Mappings;
 
 import com.hcmut.roomie.dto.CommentDTO;
 import com.hcmut.roomie.entity.Comment;
