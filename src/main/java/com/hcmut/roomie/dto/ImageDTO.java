@@ -3,6 +3,16 @@ package com.hcmut.roomie.dto;
 public class ImageDTO {
 	private Long iid;
 	private String path;
+	private Long rid;
+	
+
+	public Long getRid() {
+		return rid;
+	}
+
+	public void setRid(Long rid) {
+		this.rid = rid;
+	}
 
 	public Long getIid() {
 		return iid;
