@@ -15,6 +15,7 @@ import com.hcmut.roomie.dal.RoomDAO;
 import com.hcmut.roomie.dal.SubcriptionDAO;
 import com.hcmut.roomie.dto.LocationDTO;
 import com.hcmut.roomie.dto.RoomDTO;
+import com.hcmut.roomie.entity.Room;
 import com.hcmut.roomie.entity.Subcription;
 import com.hcmut.roomie.mapper.LocationMapper;
 import com.hcmut.roomie.mapper.RoomMapper;
@@ -36,7 +37,10 @@ public class RoomServiceImpl implements RoomService {
 
 	@Override
 	public RoomDTO createRoom(RoomDTO roomDTO) {
-		return roomMapper.roomToRoomDTO(roomDAO.save(roomMapper.roomDTOToRoom(roomDTO)));
+		Room room = roomMapper.roomDTOToRoom(roomDTO);
+		room.getImages().forEach(image -> image.setRoom(room));
+		Room room2 = roomDAO.save(room);
+		return roomMapper.roomToRoomDTO(room2);
 	}
 
 	@Override

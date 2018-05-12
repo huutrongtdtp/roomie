@@ -7,10 +7,12 @@ import org.mapstruct.Mappings;
 import com.hcmut.roomie.dto.RoomDTO;
 import com.hcmut.roomie.entity.Room;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = ImageMapper.class)
 public interface RoomMapper {
 
-	@Mappings({ @Mapping(source = "user.uid", target = "uid"), @Mapping(source = "location.lid", target = "lid") })
+	@Mappings({ @Mapping(source = "user.uid", target = "uid"),
+		@Mapping(source = "location.lid", target = "lid")
+	, @Mapping(source="images", target="images", qualifiedByName="imageListToImageDTOList")})
 	RoomDTO roomToRoomDTO(Room room);
 
 	@Mappings({ @Mapping(source = "uid", target = "user.uid"), @Mapping(source = "lid", target = "location.lid") })

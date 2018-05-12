@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -15,7 +17,7 @@ import javax.validation.constraints.Min;
 @Entity
 public class Room {
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long rid;
 	@Min(value = 0)
 	private Double area;
@@ -40,7 +42,7 @@ public class Room {
 	private Location location;
 	@OneToMany(mappedBy = "room")
 	private List<Comment> comments = new ArrayList<>();
-	@OneToMany(mappedBy = "room")
+	@OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
 	private List<Image> images = new ArrayList<>();
 	@OneToMany(mappedBy = "room")
 	private List<Rate> rates = new ArrayList<>();

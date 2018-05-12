@@ -18,16 +18,16 @@ public class RoomDTO {
 	private Boolean security;
 	private Boolean privateToilet;
 	private String description;
-	private List<ImageDTO> imageDTO;
+	private List<ImageDTO> images;
 	private Long uid;
 	private Long lid;
 
-	public List<ImageDTO> getImageDTO() {
-		return imageDTO;
+	public List<ImageDTO> getImages() {
+		return images;
 	}
 
-	public void setImageDTO(List<ImageDTO> imageDTO) {
-		this.imageDTO = imageDTO;
+	public void setImages(List<ImageDTO> images) {
+		this.images = images;
 	}
 
 	public String getDescription() {

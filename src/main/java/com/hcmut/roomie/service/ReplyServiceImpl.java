@@ -1,5 +1,8 @@
 package com.hcmut.roomie.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +18,12 @@ public class ReplyServiceImpl implements ReplyService {
 	@Override
 	public ReplyDTO createReply(ReplyDTO replyDTO) {
 		return replyMapper.replyToReplyDTO(replyDAO.save(replyMapper.replyDTOToReply(replyDTO)));
+	}
+	@Override
+	public List<ReplyDTO> getRepliesByComment(Long cid) {
+		List<ReplyDTO> result = new ArrayList<>();
+		replyDAO.findByCommentCid(cid).forEach(reply -> result.add(replyMapper.replyToReplyDTO(reply)));
+		return result;
 	};
 	
 }

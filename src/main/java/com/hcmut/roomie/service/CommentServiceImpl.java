@@ -1,5 +1,8 @@
 package com.hcmut.roomie.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +18,12 @@ public class CommentServiceImpl implements CommentService {
 	@Override
 	public CommentDTO createComment(CommentDTO commentDTO) {
 		return commentMapper.commentToCommentDTO(commentDAO.save(commentMapper.commentDTOToComment(commentDTO)));
+	}
+	@Override
+	public List<CommentDTO> getCommentsByRoom(Long rid) {
+		List<CommentDTO> result = new ArrayList<>();
+		commentDAO.findByRoomRid(rid).forEach(comment -> result.add(commentMapper.commentToCommentDTO(comment)));
+		return result;
 	}
 	
 }

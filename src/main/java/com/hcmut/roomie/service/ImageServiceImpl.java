@@ -1,5 +1,8 @@
 package com.hcmut.roomie.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +18,12 @@ public class ImageServiceImpl implements ImageService {
 	@Override
 	public ImageDTO createImage(ImageDTO imageDTO) {
 		return imageMapper.imageToImageDTO(imageDAO.save(imageMapper.imageDTOToImage(imageDTO)));
+	}
+	@Override
+	public List<ImageDTO> getImagesByRoom(Long rid) {
+		List<ImageDTO> result = new ArrayList<>();
+		imageDAO.findByRoomRid(rid).forEach(image -> result.add(imageMapper.imageToImageDTO(image)));
+		return result;
 	}
 	
 }
