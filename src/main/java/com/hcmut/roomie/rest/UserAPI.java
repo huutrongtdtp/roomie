@@ -34,7 +34,7 @@ public class UserAPI {
 		return ResponseEntity.ok(userService.getUser(uid));
 	}
 	@PostMapping("api/user-login")
-	public ResponseEntity<UserLoginDTO> loginUser(@RequestBody UserLoginDTO userLoginDTO) {
+	public ResponseEntity<Long> loginUser(@RequestBody UserLoginDTO userLoginDTO) {
 		return ResponseEntity.ok(userService.loginUser(userLoginDTO));
 	}
 }

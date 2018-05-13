@@ -40,11 +40,11 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public UserLoginDTO loginUser(UserLoginDTO userLoginDTO) {
+	public Long loginUser(UserLoginDTO userLoginDTO) {
 		User user = userDAO.findByEmail(userLoginDTO.getEmail()).orElseThrow(() -> new HttpServerErrorException(HttpStatus.NOT_FOUND, "User not existing"));
 		if (!user.getPassword().equals(userLoginDTO.getPassword()))
 			throw new HttpServerErrorException(HttpStatus.NOT_ACCEPTABLE, "Wrong password");
-		return userLoginDTO;
+		return user.getUid();
 	}
 
 }
