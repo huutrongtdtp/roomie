@@ -45,8 +45,10 @@ public class RoomServiceImpl implements RoomService {
 
 	@Override
 	public RoomDTO updateRoom(RoomDTO roomDTO) {
-		// TODO Auto-generated method stub
-		return null;
+		Room room = roomDAO.findById(roomDTO.getRid())
+				.orElseThrow(() -> new HttpServerErrorException(HttpStatus.NOT_FOUND, "Room not existing"));
+		roomMapper.updateRoomFromRoomDTO(room, roomDTO);
+		return roomMapper.roomToRoomDTO(roomDAO.save(room));
 	}
 
 	@Override
@@ -77,6 +79,11 @@ public class RoomServiceImpl implements RoomService {
 					subcription.getRadius().intValue()));
 		});
 		return result.stream().distinct().collect(Collectors.toList());
+	}
+
+	@Override
+	public List<RoomDTO> findRecentRooms() {
+		return roomMapper.roomListToRoomDTOList(roomDAO.findAll());
 	}
 
 }

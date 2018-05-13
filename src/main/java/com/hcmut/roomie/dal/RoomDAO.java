@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 import com.hcmut.roomie.entity.Room;
 @Repository
 public interface RoomDAO extends JpaRepository<Room, Long> {
-
+	
 }

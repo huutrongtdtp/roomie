@@ -45,4 +45,9 @@ public class RoomAPI {
 	public ResponseEntity<List<RoomDTO>> findBySubcription(@RequestParam long userId) {
 		return ResponseEntity.ok(roomService.findBySubcription(userId));
 	}
+
+	@GetMapping("api/room/findRecentRooms")
+	public ResponseEntity<List<RoomDTO>> findRecentRooms() {
+		return ResponseEntity.ok(roomService.findRecentRooms());
+	}
 }
