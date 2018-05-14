@@ -1,5 +1,7 @@
 package com.hcmut.roomie.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -19,6 +21,11 @@ public class RateServiceImpl implements RateService {
 
 	@Override
 	public RateDTO createRate(RateDTO rateDTO) {
+		Optional<Rate> rate = rateDAO.findByUserUidAndRoomRid(rateDTO.getUid(), rateDTO.getRid());
+		if (rate.isPresent()) {
+			rateDTO.setRaId(rate.get().getRaId());
+			return updateRate(rateDTO);
+		}
 		return rateMapper.rateToRateDTO(rateDAO.save(rateMapper.rateDTOToRate(rateDTO)));
 	}
 

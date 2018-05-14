@@ -58,7 +58,7 @@ public class RoomServiceImpl implements RoomService {
 	}
 
 	@Override
-	public List<RoomDTO> findNearby(double latitude, double longitude, int meter) {
+	public List<RoomDTO> findNearby(double latitude, double longitude, double meter) {
 		List<LocationDTO> locations = locationService.getAllLocation().stream().filter(location -> DistanceCalculator
 				.distance(latitude, longitude, location.getLatitude(), location.getLongitude(), "K") <= meter)
 				.collect(Collectors.toList());

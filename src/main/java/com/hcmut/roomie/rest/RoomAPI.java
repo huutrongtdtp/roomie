@@ -2,6 +2,8 @@ package com.hcmut.roomie.rest;
 
 import java.util.List;
 
+import javax.websocket.server.PathParam;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,15 +37,15 @@ public class RoomAPI {
 		return ResponseEntity.ok(roomService.getRoom(rid));
 	}
 
-	@GetMapping("api/room/findNearBy")
-	public ResponseEntity<List<RoomDTO>> findRoomNearBy(@RequestParam double latitude, @RequestParam double longitude,
-			@RequestParam int meter) {
+	@GetMapping("api/room/findNearBy/{latitude}/{longitude}/{meter}")
+	public ResponseEntity<List<RoomDTO>> findRoomNearBy(@PathVariable double latitude, @PathVariable double longitude,
+			@PathVariable double meter) {
 		return ResponseEntity.ok(roomService.findNearby(latitude, longitude, meter));
 	}
 
-	@GetMapping("api/room/findBySubcription")
-	public ResponseEntity<List<RoomDTO>> findBySubcription(@RequestParam long userId) {
-		return ResponseEntity.ok(roomService.findBySubcription(userId));
+	@GetMapping("api/room/findBySubcription/{uid}")
+	public ResponseEntity<List<RoomDTO>> findBySubcription(@PathVariable Long uid) {
+		return ResponseEntity.ok(roomService.findBySubcription(uid));
 	}
 
 	@GetMapping("api/room/findRecentRooms")
